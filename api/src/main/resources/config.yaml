@@ -1,0 +1,62 @@
+kumuluzee:
+  name: uberapp-chat
+  env:
+    name: dev
+  version: 1.0.0
+  server:
+    base-url: http://localhost:8086
+    http:
+      port: 8086
+  datasources:
+    - jndi-name: jdbc/CustomersDS
+      #connection-url: jdbc:postgresql://localhost:5432/postgres #pravi localhost
+      #connection-url: jdbc:postgresql://192.168.99.100:5432/postgres
+      connection-url: jdbc:postgresql://sl-eu-gb-p00.dblayer.com:15468/compose # prava cloud nastavitev
+      #connection-url: jdbc:postgresql://sl-eu-gb-p00.dblayer.com:15468/compose
+      #username: dbuser
+      username: admin
+      #password: postgres
+      max-pool-size: 20
+  health:
+    checks:
+      data-source-health-check:
+        jndi-name: jdbc/CustomersDS
+  config:
+    etcd:
+      hosts: http://192.168.99.100:2379
+      #hosts: http://localhost:2379
+  discovery:
+    etcd:
+      hosts: http://192.168.99.100:2379
+      #hosts: http://localhost:2379
+  metrics:
+    servlet:
+      enabled: true
+    #web-instrumentation:
+    #- name: notifications-endpoint
+    #  url-pattern: /v1/notifications/*
+    #  #registry-name: notificationsRegistry
+  logs:
+    config-file: '<?xml version="1.0" encoding="UTF-8"?>
+                    <Configuration name="customers">
+                        <Appenders>
+                            <Console name="console" target="SYSTEM_OUT">
+                                <PatternLayout pattern="%d %p %marker %m %X %ex %n"/>
+                            </Console>
+                            <Socket name="logstash" host="53ce6367-e595-4443-91c8-19ceb09db4c9-ls.logit.io"
+                            port="12303" protocol="tcp">
+                                <JSONLayout complete="false" compact="true" eventEol="true" charset="UTF-8" properties="true"/>
+                            </Socket>
+                        </Appenders>
+                        <Loggers>
+                            <!-- Default logger -->
+                            <Root level="all">
+                                <AppenderRef ref="console" level="info"/>
+                                <AppenderRef ref="logstash" level="trace"/>
+                            </Root>
+                        </Loggers>
+                    </Configuration>'
+app-properties:
+  external-services:
+    enabled: false
+  healthy: true

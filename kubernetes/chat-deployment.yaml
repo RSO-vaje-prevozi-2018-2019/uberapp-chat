@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chat-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chat
+  template:
+    metadata:
+      labels:
+        app: chat
+    spec:
+      containers:
+      - image: glumac/uberapp-chat:0.1
+        name: chat
+        imagePullPolicy: "Always"
+        env:
+          - name: KUMULUZEE_DISCOVERY_CLUSTER
+            value: bluemix
+          - name: KUMULUZEE_DISCOVERY_ETCD_HOSTS
+            value: http://etcd:2379
+          - name: KUMULUZEE_CONFIG_ETCD_HOSTS
+            value: http://etcd:2379
+          - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
+            value: jdbc:postgresql://postgres-customer:5432/customer
+          - name: KUMULUZEE_DATASOURCES0_USERNAME
+            value: dbuser
+          - name: KUMULUZEE_DATASOURCES0_PASSWORD
+            value: postgres
+        ports:
+        - containerPort: 8086
+          name: server
+          protocol: TCP
+

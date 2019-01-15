@@ -83,6 +83,8 @@ public class ExternalBean {
                 return 300;
             }
         }catch(IOException e){
+            System.out.println("Nepravilno parsanje jsona.");
+            System.out.println(e);
             return 500;
         }
 

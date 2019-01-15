@@ -10,7 +10,7 @@ import java.util.List;
 @Entity(name = "message")
 @NamedQueries(value =
         {
-                @NamedQuery(name = "Notification.getAll", query = "SELECT c FROM message c")
+                @NamedQuery(name = "Message.getAll", query = "SELECT c FROM message c")
         })
 public class Message {
 
@@ -39,7 +39,7 @@ public class Message {
     }
 
     public Integer getUserid1() { return userid1; }
-    public void setUserid1(Integer rideid){ this.userid1 = userid1; }
+    public void setUserid1(Integer userid1){ this.userid1 = userid1; }
 
     public Integer getUserid2() { return userid2; }
     public void setUserid2(Integer userid2){ this.userid2 = userid2; }

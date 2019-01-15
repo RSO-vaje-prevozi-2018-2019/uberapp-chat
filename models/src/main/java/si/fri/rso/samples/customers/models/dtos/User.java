@@ -13,10 +13,13 @@ public class User {
     private String email;
 
     private String status;
-    private Instant dateOfBirth;
+    private String dateOfBirth;
+    /*private Instant dateOfBirthInstant;*/
 
     private String messageGroupId;
-    private Instant lastLoggedIn;
+    private String lastLoggedIn;
+
+    /*private Instant lastLoggedInInstant;*/
 
     public User(){}
 
@@ -77,20 +80,31 @@ public class User {
     }
 
 
-    public Instant getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Instant dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
 
-    public Instant getLastLoggedIn() {
+    /*
+    public Instant getDateOfBirthInstant() {
+        return dateOfBirthInstant;
+    }
+
+    public void setDateOfBirthInstant(Instant dateOfBirthInstant) {
+        this.dateOfBirthInstant = dateOfBirthInstant;
+    }
+    */
+
+
+    public String getLastLoggedIn() {
         return lastLoggedIn;
     }
 
-    public void setLastLoggedIn(Instant lastLoggedIn) {
+    public void setLastLoggedIn(String lastLoggedIn) {
         this.lastLoggedIn = lastLoggedIn;
     }
 

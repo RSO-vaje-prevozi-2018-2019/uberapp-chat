@@ -28,13 +28,32 @@ public class ChatResource {
 
     @GET
     @Path("/{user1id}/{user2id}")
-    @Metered(name="count_get_all_notifications")
+    @Metered(name="count_get_chat")
     public Response getChat(@PathParam("user1id") Integer user1id, @PathParam("user2id") Integer user2id) {
         try {
-            List<Message> notifications = chatBean.getChat(user1id,user2id);
-
-            return Response.ok(notifications).build();
+            List<Message> chat = chatBean.getChat(user1id,user2id);
+            System.out.println("your in a barbie time");
+            return Response.status(Response.Status.OK).entity(chat).build();
         }catch (Exception e){
+            System.out.println("error");
+            System.out.println(e);
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+
+    @POST
+    @Path("create")
+    @Metered(name="count_created_messages")
+    public Response createMessage(Message msg){
+        try{
+            System.out.println("does work");
+            Message createdMsg = chatBean.createMessage(msg);
+            if(createdMsg == null){
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }else{
+                return Response.status(Response.Status.OK).entity(createdMsg).build();
+            }
+        }catch(Exception e){
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
     }

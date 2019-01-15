@@ -73,8 +73,16 @@ public class ChatBean {
         if(userid1 == userid2){
             return foundChat;
         }
-        int user1exists = externalBean.userExists(userid1);
-        int user2exists = externalBean.userExists(userid2);
+        int user1exists=-1;
+        int user2exists=-1;
+        try {
+            user1exists = externalBean.userExists(userid1);
+            user2exists = externalBean.userExists(userid2);
+        }catch(Exception e){
+            System.out.println("error from remote service");
+            System.out.println(e);
+            return foundChat;
+        }
         if(user1exists > 200){
             System.out.println("user 1");
             if(user1exists == 300){
@@ -106,25 +114,40 @@ public class ChatBean {
         if(chat != null && chat.size() > 0){
             for(Message mes : chat){
                 if((mes.getUserid1() == userid1 && mes.getUserid2()==userid2) || (mes.getUserid1() == userid2 && mes.getUserid2()==userid1)){
-                    chat.add(mes);
+                    foundChat.add(mes);
                 }
             }
-            return chat;
+            return foundChat;
         }else{
-            return new ArrayList<Message>();
+            return foundChat;
         }
 
     }
 
     @Metered(name="count_created_message")
     public Message createMessage(Message message) {
+        if(message == null || message.getUserid1()==null || message.getUserid2() == null || message.getUserid2() == message.getUserid1()){
+            System.out.println("some values was not ok");
+            return null;
+        }
 
+
+        boolean transactionstarted = false;
         try {
+            int user1exists = externalBean.userExists(message.getUserid1());
+            int user2exists = externalBean.userExists(message.getUserid2());
+            if(user1exists > 200 || user2exists > 200){
+                System.out.println("one user does not exist");
+                return null;
+            }
             beginTx();
+            transactionstarted = true;
             em.persist(message);
             commitTx();
         } catch (Exception e) {
-            rollbackTx();
+            if(transactionstarted) {
+                rollbackTx();
+            }
         }
 
         return message;

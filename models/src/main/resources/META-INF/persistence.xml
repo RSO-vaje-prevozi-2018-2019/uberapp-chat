@@ -4,7 +4,7 @@
         <non-jta-data-source>jdbc/CustomersDS</non-jta-data-source>
 
         <!--<class>si.fri.rso.samples.customers.models.entities.Customer</class>-->
-        <class>si.fri.rso.samples.customers.models.entities.Notification</class>
+        <class>si.fri.rso.samples.customers.models.entities.Message</class>
         <class>si.fri.rso.samples.customers.models.converters.InstantAtributeConverter</class>
 
 

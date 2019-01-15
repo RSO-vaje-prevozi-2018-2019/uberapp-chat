@@ -70,6 +70,10 @@ public class ExternalBean {
         try{
             ObjectMapper mapper = new ObjectMapper();
             User foundUser = mapper.readValue(json, User.class);
+            System.out.println("user: " + foundUser);
+            if(foundUser== null){
+                System.out.println("Ne dobi userja");
+            }
             if(foundUser != null && foundUser.getId() == userid){
                 return 200;
             }else{

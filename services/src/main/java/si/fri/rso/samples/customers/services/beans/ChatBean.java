@@ -70,9 +70,13 @@ public class ChatBean {
         * */
 
         List<Message> foundChat = new ArrayList<Message>();
+        if(userid1 == userid2){
+            return foundChat;
+        }
         int user1exists = externalBean.userExists(userid1);
         int user2exists = externalBean.userExists(userid2);
         if(user1exists > 200){
+            System.out.println("user 1");
             if(user1exists == 300){
                 System.out.println("uporabnik ne obstaja");
             }
@@ -85,6 +89,7 @@ public class ChatBean {
             return foundChat;
         }
         if(user2exists > 200){
+            System.out.println("user 2");
             if(user2exists == 300){
                 System.out.println("uporabnik ne obstaja");
             }

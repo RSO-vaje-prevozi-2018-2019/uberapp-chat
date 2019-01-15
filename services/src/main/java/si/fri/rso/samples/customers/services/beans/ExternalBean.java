@@ -73,6 +73,9 @@ public class ExternalBean {
             System.out.println("user: " + foundUser);
             if(foundUser== null){
                 System.out.println("Ne dobi userja");
+            }else{
+                System.out.println("user id:" + foundUser.getId());
+                System.out.println("user name:" + foundUser.getFirstName());
             }
             if(foundUser != null && foundUser.getId() == userid){
                 return 200;

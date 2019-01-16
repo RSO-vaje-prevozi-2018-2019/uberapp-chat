@@ -1,7 +1,7 @@
-# RSO: Customers microservice
+# RSO: Chat microservice
 
-## Prerequisites
+## Service for sending messages between users.
 
-```bash
-docker run -d --name pg-customers -e POSTGRES_USER=dbuser -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=customer -p 5432:5432 postgres:10.5
-```
+GET serverurl/v1/chat/_userid1_/_userid2_
+
+POST serverurl/v1/create
